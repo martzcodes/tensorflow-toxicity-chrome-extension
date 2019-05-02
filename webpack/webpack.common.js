@@ -1,37 +1,40 @@
 const webpack = require("webpack");
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-    entry: {
-        popup: path.join(__dirname, '../src/popup.ts'),
-        options: path.join(__dirname, '../src/options.ts'),
-        background: path.join(__dirname, '../src/background.ts'),
-        content_script: path.join(__dirname, '../src/content_script.ts')
-    },
-    output: {
-        path: path.join(__dirname, '../dist/js'),
-        filename: '[name].js'
-    },
-    optimization: {
-        splitChunks: {
-            name: 'vendor',
-            chunks: "initial"
+  entry: {
+    popup: path.join(__dirname, "../chrome-src/popup.ts"),
+    options: path.join(__dirname, "../chrome-src/options.ts"),
+    background: path.join(__dirname, "../chrome-src/background.ts"),
+    content_script: path.join(__dirname, "../chrome-src/content_script.ts")
+  },
+  output: {
+    path: path.join(__dirname, "../dist/chrome/js"),
+    filename: "[name].js"
+  },
+  optimization: {
+    splitChunks: {
+      name: "vendor",
+      chunks: "initial"
+    }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        loader: "ts-loader",
+        exclude: /node_modules/,
+        options: {
+          configFile: "chrome-tsconfig.json"
         }
-    },
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/
-            }
-        ]
-    },
-    resolve: {
-        extensions: ['.ts', '.tsx', '.js']
-    },
-    plugins: [
-        // exclude locale files in moment
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      }
     ]
+  },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js"]
+  },
+  plugins: [
+    // exclude locale files in moment
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+  ]
 };
