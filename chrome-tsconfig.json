@@ -8,5 +8,6 @@
     "outDir": "dist/js",
     "noEmitOnError": true,
     "typeRoots": ["node_modules/@types"]
-  }
+  },
+  "exclude": ["src", "projects", "e2e"]
 }

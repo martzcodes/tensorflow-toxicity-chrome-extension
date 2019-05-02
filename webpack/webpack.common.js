@@ -7,6 +7,8 @@ module.exports = {
     options: path.join(__dirname, "../chrome-src/options.ts"),
     background: path.join(__dirname, "../chrome-src/background.ts"),
     content_script: path.join(__dirname, "../chrome-src/content_script.ts")
+    // poly: path.join(__dirname, "../dist/toxicity-output/es2015-polyfills.js"),
+    // toxicity: path.join(__dirname, "../dist/toxicity-output/main.js")
   },
   output: {
     path: path.join(__dirname, "../dist/chrome/js"),
