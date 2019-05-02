@@ -1,0 +1,28 @@
+{
+  "name": "tensorflow-toxicity-chrome-extension",
+  "version": "1.0.0",
+  "description": "Tensorflow Toxicity Chrome Extension",
+  "main": "index.js",
+  "scripts": {
+    "watch": "webpack --config webpack/webpack.dev.js --watch",
+    "build": "webpack --config webpack/webpack.prod.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/martzcodes/tensorflow-toxicity-chrome-extension.git"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs": "1.1.2",
+    "@tensorflow-models/toxicity": "1.0.3"
+  },
+  "devDependencies": {
+    "@types/chrome": "~0.0.83",
+    "ts-loader": "~5.4.3",
+    "typescript": "~3.4.5",
+    "webpack": "~4.17.2",
+    "webpack-cli": "~3.1.0",
+    "webpack-merge": "~4.1.4"
+  }
+}
