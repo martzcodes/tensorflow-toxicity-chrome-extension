@@ -4,19 +4,23 @@ import {
   ToxicityLibModule,
   ToxicityLibComponent,
   ToxicityContainerComponent
-} from "projects/toxicity-lib/src/public-api";
+} from "../../../toxicity-lib/src/public-api";
 import { createCustomElement } from "@angular/elements";
 
 @NgModule({
   declarations: [],
   imports: [BrowserModule, ToxicityLibModule],
   providers: [],
-  bootstrap: []
+  bootstrap: [],
+  entryComponents: [ToxicityContainerComponent, ToxicityLibComponent]
 })
 export class AppModule {
-  constructor(private injector: Injector) {}
+  constructor(private injector: Injector) {
+    console.log("toxicity output constructor");
+  }
 
   ngDoBootstrap() {
+    console.log("bootstrapping");
     const toxicContainer = createCustomElement(ToxicityContainerComponent, {
       injector: this.injector
     });

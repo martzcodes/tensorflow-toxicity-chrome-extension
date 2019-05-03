@@ -1,6 +1,8 @@
 import * as tf from "@tensorflow/tfjs";
 import * as toxicity from "@tensorflow-models/toxicity";
 
+console.log("here");
+
 const BUTTON_TEXT = "toxic?";
 
 // The minimum prediction confidence.
@@ -99,6 +101,7 @@ function appendInput() {
       inp.parentElement.insertBefore(wrapper, inp);
       wrapper.appendChild(inp);
       wrapper.appendChild(button);
+      wrapper.appendChild(document.createElement("toxicity-container"));
     }
   });
 }

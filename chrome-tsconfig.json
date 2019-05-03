@@ -1,13 +1,20 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "module": "commonjs",
     "target": "es6",
     "noImplicitAny": false,
     "sourceMap": false,
-    "rootDir": "chrome-src",
+    "rootDir": ".",
     "outDir": "dist/js",
     "noEmitOnError": true,
-    "typeRoots": ["node_modules/@types"]
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "typeRoots": ["node_modules/@types"],
+    "paths": {
+      "toxicity-lib": ["dist/toxicity-lib"],
+      "toxicity-lib/*": ["dist/toxicity-lib/*"]
+    }
   },
-  "exclude": ["src", "projects", "e2e"]
+  "exclude": ["src", "e2e"]
 }

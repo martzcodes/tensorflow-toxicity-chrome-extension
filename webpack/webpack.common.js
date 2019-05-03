@@ -3,12 +3,18 @@ const path = require("path");
 
 module.exports = {
   entry: {
+    // toxicityPolyfill: path.join(
+    //   __dirname,
+    //   "../projects/toxicity-output/src/polyfills.ts"
+    // ),
+    // toxicityMain: path.join(
+    //   __dirname,
+    //   "../projects/toxicity-output/src/main.ts"
+    // ),
     popup: path.join(__dirname, "../chrome-src/popup.ts"),
     options: path.join(__dirname, "../chrome-src/options.ts"),
     background: path.join(__dirname, "../chrome-src/background.ts"),
     content_script: path.join(__dirname, "../chrome-src/content_script.ts")
-    // poly: path.join(__dirname, "../dist/toxicity-output/es2015-polyfills.js"),
-    // toxicity: path.join(__dirname, "../dist/toxicity-output/main.js")
   },
   output: {
     path: path.join(__dirname, "../dist/chrome/js"),

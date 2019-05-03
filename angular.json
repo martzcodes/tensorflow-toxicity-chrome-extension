@@ -286,7 +286,7 @@
         "build": {
           "builder": "ngx-build-plus:build",
           "options": {
-            "outputPath": "dist/toxicity-output",
+            "outputPath": "dist/chrome/toxicity",
             "index": "projects/toxicity-output/src/index.html",
             "main": "projects/toxicity-output/src/main.ts",
             "polyfills": "projects/toxicity-output/src/polyfills.ts",

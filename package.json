@@ -19,8 +19,6 @@
     "url": "https://github.com/martzcodes/tensorflow-toxicity-chrome-extension.git"
   },
   "dependencies": {
-    "@tensorflow/tfjs": "1.1.2",
-    "@tensorflow-models/toxicity": "1.0.3",
     "@angular/animations": "~7.2.0",
     "@angular/common": "~7.2.0",
     "@angular/compiler": "~7.2.0",
@@ -31,6 +29,9 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "@swimlane/ngx-charts": "^10.1.0",
+    "@tensorflow-models/toxicity": "1.0.3",
+    "@tensorflow/tfjs": "1.1.2",
+    "@webcomponents/custom-elements": "^1.2.4",
     "@webcomponents/webcomponentsjs": "^2.2.9",
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.5.4",
@@ -65,8 +66,8 @@
     "tslint": "~5.11.0",
     "@types/chrome": "~0.0.83",
     "ts-loader": "~5.4.3",
-    "typescript": "~3.4.5",
-    "webpack": "~4.17.2",
+    "typescript": "~3.2.4",
+    "webpack": "~4.30.0",
     "webpack-cli": "~3.1.0",
     "webpack-merge": "~4.1.4"
   }

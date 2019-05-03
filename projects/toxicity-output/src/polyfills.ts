@@ -60,7 +60,7 @@ import "zone.js/dist/zone"; // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
-
+import "core-js/es7/reflect";
 import "@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js";
 
 // This polyfill needs to be loaded
