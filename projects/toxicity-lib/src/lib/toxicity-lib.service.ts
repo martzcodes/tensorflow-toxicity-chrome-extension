@@ -18,7 +18,6 @@ export class ToxicityLibService {
     return this._valid;
   }
   set valid(val: boolean) {
-    console.log("service valid", val);
     this._valid = val;
     this.valid$.next(val);
   }

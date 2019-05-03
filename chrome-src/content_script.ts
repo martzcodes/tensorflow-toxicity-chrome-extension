@@ -8,10 +8,7 @@ function shouldAppend(inp: Element) {
 }
 
 function appendInput() {
-  const inputs = [
-    ...document.querySelectorAll("textarea"),
-    ...document.querySelectorAll("[role='textbox']")
-  ];
+  const inputs = document.querySelectorAll("textarea");
 
   inputs.forEach(inp => {
     console.log(inp);

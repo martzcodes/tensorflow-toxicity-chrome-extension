@@ -56,7 +56,6 @@ export class ToxicityButtonComponent implements OnInit {
   ngOnInit() {
     this.valid$ = this.toxicityService.valid$.pipe(
       tap(valid => {
-        console.log(valid);
         this.cd.markForCheck();
         this.cd.detectChanges();
       })
@@ -73,7 +72,6 @@ export class ToxicityButtonComponent implements OnInit {
             icon = "question";
           }
         }
-        console.log(icon);
         return icon;
       }),
       tap(() => {
@@ -84,7 +82,6 @@ export class ToxicityButtonComponent implements OnInit {
   }
 
   submit() {
-    console.log("submit");
     this.analyze.emit();
   }
 }
