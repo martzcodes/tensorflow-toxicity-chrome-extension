@@ -1,0 +1,9 @@
+<mat-chip-list>
+  <mat-chip
+    *ngFor="let pred of predictions$ | async"
+    selected
+    [color]="pred.results[0].match ? 'primary' : 'default'"
+    >{{ pred.label }}:
+    {{ 100 * pred.results[0].probabilities[1] | number: "1.0-1" }}%</mat-chip
+  >
+</mat-chip-list>

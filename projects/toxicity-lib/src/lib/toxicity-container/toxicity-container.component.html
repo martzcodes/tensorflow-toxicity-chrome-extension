@@ -1,3 +1,13 @@
-<p>
-  toxicity-container works!
-</p>
+<div style="display: grid">
+  <div style="clear:both;">
+    <slot (slotchange)="slotChange($event)"></slot>
+  </div>
+  <div>
+    <lib-toxicity-button
+      (analyze)="analyze()"
+      [analyzed]="analyzed"
+      [valid]="valid"
+    ></lib-toxicity-button>
+    <lib-toxicity-results></lib-toxicity-results>
+  </div>
+</div>
