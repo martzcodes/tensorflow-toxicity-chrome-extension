@@ -5,7 +5,8 @@ import {
   EventEmitter,
   Input,
   ChangeDetectionStrategy,
-  OnDestroy
+  OnDestroy,
+  ChangeDetectorRef
 } from "@angular/core";
 import { MatIconRegistry } from "@angular/material";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -16,7 +17,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { icon } from "@fortawesome/fontawesome-svg-core";
 import { ToxicityLibService } from "../toxicity-lib.service";
-import { Observable, Subscription } from "rxjs";
+import { Observable, Subscription, BehaviorSubject } from "rxjs";
+import { map, tap } from "rxjs/operators";
 
 @Component({
   selector: "lib-toxicity-button",
@@ -24,17 +26,16 @@ import { Observable, Subscription } from "rxjs";
   styleUrls: ["./toxicity-button.component.css"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToxicityButtonComponent implements OnInit, OnDestroy {
-  @Input() valid: boolean;
-  @Input() analyzed: boolean;
+export class ToxicityButtonComponent implements OnInit {
   @Output() analyze: EventEmitter<void> = new EventEmitter();
-  analyzing$: Subscription;
-  icon: string = "question";
+  valid$: Observable<boolean>;
+  icon$: Observable<string>;
 
   constructor(
     private matIconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
-    private toxicityService: ToxicityLibService
+    private toxicityService: ToxicityLibService,
+    private cd: ChangeDetectorRef
   ) {
     this.matIconRegistry.addSvgIconLiteral(
       "coffee",
@@ -53,24 +54,37 @@ export class ToxicityButtonComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.analyzing$ = this.toxicityService.analyzing$.subscribe(analyzing => {
-      if (analyzing) {
-        this.icon = "sync";
-      } else {
-        if (this.analyzed) {
-          this.icon = "coffee";
+    this.valid$ = this.toxicityService.valid$.pipe(
+      tap(valid => {
+        console.log(valid);
+        this.cd.markForCheck();
+        this.cd.detectChanges();
+      })
+    );
+    this.icon$ = this.toxicityService.analyzing$.pipe(
+      map(analyzing => {
+        let icon = "coffee";
+        if (analyzing) {
+          icon = "sync";
         } else {
-          this.icon = "question";
+          if (this.toxicityService.analyzed) {
+            icon = "coffee";
+          } else {
+            icon = "question";
+          }
         }
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.analyzing$.unsubscribe();
+        console.log(icon);
+        return icon;
+      }),
+      tap(() => {
+        this.cd.markForCheck();
+        this.cd.detectChanges();
+      })
+    );
   }
 
   submit() {
+    console.log("submit");
     this.analyze.emit();
   }
 }

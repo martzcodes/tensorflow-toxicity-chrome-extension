@@ -1,4 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  ChangeDetectorRef
+} from "@angular/core";
 import { ToxicityLibService } from "../toxicity-lib.service";
 
 @Component({
@@ -13,7 +18,10 @@ export class ToxicityContainerComponent implements OnInit {
   valid: boolean;
   analyzed: boolean;
 
-  constructor(private toxicityService: ToxicityLibService) {}
+  constructor(
+    private toxicityService: ToxicityLibService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {}
 
@@ -22,24 +30,27 @@ export class ToxicityContainerComponent implements OnInit {
     (this.assigned as any).oninput = ev => {
       if (this.textToAnalyze !== (this.assigned as HTMLTextAreaElement).value) {
         this.textToAnalyze = (this.assigned as HTMLTextAreaElement).value;
-        if (this.analyzed) {
-          this.valid = true;
+        if (this.toxicityService.analyzed) {
+          this.toxicityService.valid = true;
         } else {
           if (this.textToAnalyze.length === 0) {
-            this.valid = false;
+            this.toxicityService.valid = false;
           } else {
-            this.valid = true;
+            this.toxicityService.valid = true;
           }
         }
       }
+      this.cd.detectChanges();
     };
   }
 
   analyze() {
     const textToAnalyze = (this.assigned as HTMLTextAreaElement).value;
-    this.analyzed = false;
+    this.toxicityService.analyzed = false;
     this.toxicityService.analyze(textToAnalyze).then(() => {
-      this.analyzed = true;
+      this.toxicityService.analyzed = true;
+      this.cd.markForCheck();
+      this.cd.detectChanges();
     });
   }
 }

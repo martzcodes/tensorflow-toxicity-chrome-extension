@@ -3,11 +3,7 @@
     <slot (slotchange)="slotChange($event)"></slot>
   </div>
   <div>
-    <lib-toxicity-button
-      (analyze)="analyze()"
-      [analyzed]="analyzed"
-      [valid]="valid"
-    ></lib-toxicity-button>
+    <lib-toxicity-button (analyze)="analyze()"></lib-toxicity-button>
     <lib-toxicity-results></lib-toxicity-results>
   </div>
 </div>

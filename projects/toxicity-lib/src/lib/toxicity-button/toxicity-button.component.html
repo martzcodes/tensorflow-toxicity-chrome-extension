@@ -1,3 +1,8 @@
-<button mat-mini-fab color="primary" (click)="submit()" [disabled]="!valid">
-  <mat-icon [svgIcon]="icon"></mat-icon>
+<button
+  mat-mini-fab
+  color="primary"
+  (click)="submit()"
+  [disabled]="!(valid$ | async)"
+>
+  <mat-icon [svgIcon]="icon$ | async"></mat-icon>
 </button>
