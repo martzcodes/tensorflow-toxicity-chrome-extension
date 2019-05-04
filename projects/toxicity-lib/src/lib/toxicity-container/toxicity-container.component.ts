@@ -1,8 +1,9 @@
 import {
   Component,
-  OnInit,
   ViewEncapsulation,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  ElementRef,
+  ViewChild
 } from "@angular/core";
 import { ToxicityLibService } from "../toxicity-lib.service";
 
@@ -12,20 +13,26 @@ import { ToxicityLibService } from "../toxicity-lib.service";
   styleUrls: ["./toxicity-container.component.css"],
   encapsulation: ViewEncapsulation.ShadowDom
 })
-export class ToxicityContainerComponent implements OnInit {
+export class ToxicityContainerComponent {
   assigned: Node;
   textToAnalyze: string;
   valid: boolean;
   analyzed: boolean;
+
+  @ViewChild("slot") public slot: ElementRef;
+  @ViewChild("toxicButton") public toxicButton: ElementRef;
+  @ViewChild("results") public results: ElementRef;
 
   constructor(
     private toxicityService: ToxicityLibService,
     private cd: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {}
-
   slotChange($event) {
+    console.log(this.slot);
+    console.log(this.toxicButton);
+    console.log(this.results);
+
     this.assigned = $event.target.assignedNodes()[0];
     (this.assigned as any).oninput = ev => {
       if (this.textToAnalyze !== (this.assigned as HTMLTextAreaElement).value) {

@@ -92,6 +92,8 @@ THE SOFTWARE.
 
 @angular/material/chips
 
+@angular/material/dialog
+
 @angular/material/icon
 
 @angular/material/tooltip

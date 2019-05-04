@@ -1,9 +1,7 @@
 <div style="display: grid">
   <div style="clear:both;">
-    <slot (slotchange)="slotChange($event)"></slot>
+    <slot #slot (slotchange)="slotChange($event)"></slot>
   </div>
-  <div>
-    <lib-toxicity-button (analyze)="analyze()"></lib-toxicity-button>
-    <lib-toxicity-results></lib-toxicity-results>
-  </div>
+  <lib-toxicity-button #toxicButton (analyze)="analyze()"></lib-toxicity-button>
+  <lib-toxicity-results #results></lib-toxicity-results>
 </div>

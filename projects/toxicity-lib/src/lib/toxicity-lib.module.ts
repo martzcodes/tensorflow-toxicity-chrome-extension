@@ -1,20 +1,19 @@
 import { NgModule } from "@angular/core";
-import { ToxicityLibComponent } from "./toxicity-lib.component";
 import { ToxicityContainerComponent } from "./toxicity-container/toxicity-container.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import {
   MatButtonModule,
   MatIconModule,
-  MatTooltipModule,
   MatChipsModule
 } from "@angular/material";
 import { ToxicityResultsComponent } from "./toxicity-results/toxicity-results.component";
 import { ToxicityButtonComponent } from "./toxicity-button/toxicity-button.component";
 
+import "hammerjs";
+
 @NgModule({
   declarations: [
-    ToxicityLibComponent,
     ToxicityContainerComponent,
     ToxicityResultsComponent,
     ToxicityButtonComponent
@@ -24,18 +23,15 @@ import { ToxicityButtonComponent } from "./toxicity-button/toxicity-button.compo
     FontAwesomeModule,
     MatButtonModule,
     MatIconModule,
-    MatTooltipModule,
     MatChipsModule
   ],
   exports: [
-    ToxicityLibComponent,
     ToxicityContainerComponent,
     FontAwesomeModule,
     MatButtonModule,
     MatIconModule,
-    MatTooltipModule,
     MatChipsModule
   ],
-  entryComponents: [ToxicityLibComponent, ToxicityContainerComponent]
+  entryComponents: [ToxicityContainerComponent]
 })
 export class ToxicityLibModule {}
