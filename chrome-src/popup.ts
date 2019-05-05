@@ -1,7 +1,9 @@
 function setDOMInfo(info) {
   console.log("creating element");
   const toxicityElement = document.createElement("toxicity-popup");
-  toxicityElement.setAttribute("textToAnalyze", info.selectedText);
+  if (info && info.selectedText) {
+    toxicityElement.setAttribute("textToAnalyze", info.selectedText);
+  }
   document.body.appendChild(toxicityElement);
 }
 
