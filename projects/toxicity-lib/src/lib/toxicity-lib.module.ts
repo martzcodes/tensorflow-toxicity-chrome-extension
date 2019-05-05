@@ -11,12 +11,14 @@ import { ToxicityResultsComponent } from "./toxicity-results/toxicity-results.co
 import { ToxicityButtonComponent } from "./toxicity-button/toxicity-button.component";
 
 import "hammerjs";
+import { ToxicityPopupComponent } from "./toxicity-popup/toxicity-popup.component";
 
 @NgModule({
   declarations: [
     ToxicityContainerComponent,
     ToxicityResultsComponent,
-    ToxicityButtonComponent
+    ToxicityButtonComponent,
+    ToxicityPopupComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -27,11 +29,12 @@ import "hammerjs";
   ],
   exports: [
     ToxicityContainerComponent,
+    ToxicityPopupComponent,
     FontAwesomeModule,
     MatButtonModule,
     MatIconModule,
     MatChipsModule
   ],
-  entryComponents: [ToxicityContainerComponent]
+  entryComponents: [ToxicityContainerComponent, ToxicityPopupComponent]
 })
 export class ToxicityLibModule {}

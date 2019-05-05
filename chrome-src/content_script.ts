@@ -16,7 +16,6 @@ function appendInput() {
     if (shouldAppend(inp)) {
       console.log("appending...");
       const wrapper = document.createElement("toxicity-container");
-      //   wrapper.setAttribute("style", "display:grid;");
       inp.parentElement.insertBefore(wrapper, inp);
       wrapper.appendChild(inp);
     }
@@ -36,8 +35,61 @@ var callback = mutationsList => {
   appendInput();
 };
 
-var observer = new MutationObserver(callback);
+chrome.storage.sync.get(
+  {
+    textarea: false
+  },
+  function(items) {
+    if (items.textarea) {
+      var observer = new MutationObserver(callback);
 
-observer.observe(targetNode, config);
+      observer.observe(targetNode, config);
 
-appendInput();
+      appendInput();
+    }
+  }
+);
+
+let selectedText = "";
+
+function getSelectedText() {
+  var text = "";
+  var activeEl: any = document.activeElement;
+  var activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null;
+  if (
+    activeElTagName == "textarea" ||
+    (activeElTagName == "input" &&
+      /^(?:text|search|password|tel|url)$/i.test(activeEl.type) &&
+      typeof activeEl.selectionStart == "number")
+  ) {
+    text = activeEl.value.slice(activeEl.selectionStart, activeEl.selectionEnd);
+  } else if (window.getSelection) {
+    text = window.getSelection().toString();
+  }
+  selectedText = text;
+  return text;
+}
+
+document.onmouseup = document.onkeyup = (document as any).onselectionchange = function() {
+  getSelectedText();
+};
+
+chrome.runtime.sendMessage({
+  from: "content",
+  subject: "showPageAction"
+});
+
+// Listen for messages from the popup
+chrome.runtime.onMessage.addListener(function(msg, sender, response) {
+  // First, validate the message's structure
+  if (msg.from === "popup" && msg.subject === "DOMInfo") {
+    // Collect the necessary data
+    var domInfo = {
+      selectedText: selectedText
+    };
+
+    // Directly respond to the sender (popup),
+    // through the specified callback */
+    response(domInfo);
+  }
+});

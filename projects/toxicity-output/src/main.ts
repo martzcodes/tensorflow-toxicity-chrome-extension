@@ -7,6 +7,7 @@ import { AppModule } from "./app/app.module";
 import { environment } from "./environments/environment";
 
 import "@webcomponents/custom-elements";
+import "@webcomponents/custom-elements/src/native-shim.js";
 
 if (environment.production) {
   enableProdMode();

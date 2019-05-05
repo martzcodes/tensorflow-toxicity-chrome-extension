@@ -1,0 +1,19 @@
+<h1>
+  Are you a jerk?
+  <span *ngIf="analyzed"
+    ><span *ngIf="jerk">Yeah...</span
+    ><span *ngIf="!jerk">Probably not...</span></span
+  >
+</h1>
+<div style="display: grid">
+  <p *ngIf="texttoanalyze">
+    <span *ngIf="analyzed">We checked: </span>"{{ texttoanalyze }}"<span
+      *ngIf="!analyzed"
+      >... analyzing...</span
+    >
+  </p>
+  <p *ngIf="!texttoanalyze">
+    No Text To Analyze... Please select something and re-open this popup
+  </p>
+  <lib-toxicity-results #results></lib-toxicity-results>
+</div>

@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import * as tf from "@tensorflow/tfjs";
 import * as toxicity from "@tensorflow-models/toxicity";
+import { filter, switchMap, take } from "rxjs/operators";
 
 const threshold = 0.9;
 
@@ -11,7 +12,11 @@ const threshold = 0.9;
 export class ToxicityLibService {
   predictions$: BehaviorSubject<any> = new BehaviorSubject(null);
   analyzing$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  toxicityModel: toxicity.ToxicityClassifier = null;
+
+  toxicityModel$: BehaviorSubject<
+    toxicity.ToxicityClassifier
+  > = new BehaviorSubject(null);
+
   valid$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private _valid: boolean;
   get valid() {
@@ -40,7 +45,7 @@ export class ToxicityLibService {
     console.log("loading toxicity model...");
     toxicity.load(threshold, []).then(model => {
       console.log("toxicity model loaded");
-      this.toxicityModel = model;
+      this.toxicityModel$.next(model);
     });
   }
 
@@ -48,10 +53,25 @@ export class ToxicityLibService {
     console.log(`Analyzing: ${textToAnalyze}`);
     this.analyzing$.next(true);
     this.predictions$.next(null);
-    return this.toxicityModel.classify(textToAnalyze).then(predictions => {
-      console.log("Predictions:", predictions);
-      this.predictions$.next(predictions);
-      this.analyzing$.next(false);
-    });
+    return this.toxicityModel$
+      .pipe(
+        filter(model => {
+          if (model) {
+            return true;
+          } else {
+            return false;
+          }
+        }),
+        switchMap(model => {
+          return model.classify(textToAnalyze).then(predictions => {
+            console.log("Predictions:", predictions);
+            this.predictions$.next(predictions);
+            this.analyzing$.next(false);
+            return predictions;
+          });
+        }),
+        take(1)
+      )
+      .toPromise();
   }
 }

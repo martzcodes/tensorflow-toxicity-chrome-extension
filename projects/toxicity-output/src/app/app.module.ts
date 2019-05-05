@@ -2,7 +2,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule, Injector } from "@angular/core";
 import {
   ToxicityLibModule,
-  ToxicityContainerComponent
+  ToxicityContainerComponent,
+  ToxicityPopupComponent
 } from "../../../toxicity-lib/src/public-api";
 import { createCustomElement } from "@angular/elements";
 
@@ -11,7 +12,7 @@ import { createCustomElement } from "@angular/elements";
   imports: [BrowserModule, ToxicityLibModule],
   providers: [],
   bootstrap: [],
-  entryComponents: [ToxicityContainerComponent]
+  entryComponents: [ToxicityContainerComponent, ToxicityPopupComponent]
 })
 export class AppModule {
   constructor(private injector: Injector) {
@@ -24,5 +25,9 @@ export class AppModule {
       injector: this.injector
     });
     customElements.define("toxicity-container", toxicContainer);
+    const toxicPopup = createCustomElement(ToxicityPopupComponent, {
+      injector: this.injector
+    });
+    customElements.define("toxicity-popup", toxicPopup);
   }
 }
